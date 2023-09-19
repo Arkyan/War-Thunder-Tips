@@ -1,0 +1,32 @@
+html {
+    margin:0;
+    padding:0;
+    background: url(back.png) no-repeat center fixed;
+    background-size: cover;
+    }
+
+.titre {
+    text-decoration: underline overline #7f19e6;
+    color:white;
+    text-align: center;
+    }
+
+.discord {
+    font-family: arial, verdana, sans-serif;
+    font-size: 18pt;
+    color: #7289DA ;
+    }
+
+.liste {
+    color:white;
+    text-decoration: underline;
+    }
+
+.element {
+    color:white;
+    }
+ul {
+    color: white;
+    list-style-type:circle ;
+}
+
