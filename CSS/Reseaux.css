@@ -4,3 +4,11 @@ html {
     background: url(../Image/back.png) no-repeat center fixed;
     background-size: cover;
     }
+.reseau {
+    text-decoration: underline #ffffff;
+    color:white;
+    }
+
+ul {
+    color: white;
+ }
