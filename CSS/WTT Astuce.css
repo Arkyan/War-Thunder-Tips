@@ -5,3 +5,8 @@ html {
     background-size: cover;
     }
 
+.titre {
+   text-decoration: underline #716868;
+    color:white;
+    text-align: center;
+    }
