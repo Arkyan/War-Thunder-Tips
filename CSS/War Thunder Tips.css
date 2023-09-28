@@ -29,9 +29,12 @@ html {
 ul {
     color: white;
 }
+.lien {
+    color: white;
+    text-decoration: underline;
+}
 
 .reseau {
     color: white;
-    text-decoration: underline;
 }
 
