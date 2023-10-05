@@ -1,0 +1,23 @@
+html {
+    margin:0;
+    padding:0;
+    background: url(../assets/img/back.png) no-repeat center fixed;
+    background-size: cover;
+    font-family:Arial, Helvetica, sans-serif;
+    }
+
+.titre {
+    text-decoration: underline #716868;
+    color:white;
+    text-align: center;
+    }
+
+.avion {
+    text-decoration: underline #716868;
+    color: white;
+    } 
+    
+.char {
+    text-decoration: underline #716868;
+    color: white;
+    }
