@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 document.addEventListener('DOMContentLoaded', function () {
     var xhr = new XMLHttpRequest();
     var xhr_post_only = new XMLHttpRequest();
@@ -14,17 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
             xhr_post_only.send(null);
         }
     }
-=======
-function ActuStats() {
-    fetch("/data/stats.json")
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            document.getElementById("visiteurs").innerHTML = data.visiteurs_total;
-        });
-}
->>>>>>> Stashed changes
 
     xhr.open('GET', 'http://localhost:8080/getstats', true);
     xhr.send(null);

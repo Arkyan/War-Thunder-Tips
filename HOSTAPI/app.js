@@ -5,8 +5,12 @@ const cors = require('cors')
 
 app.use(cors())
 
+app.get('/', (req, res) => {
+    res.send('Bienvenue sur l\'API de gestion de fichiers !')
+})
+
 app.get('/getstats', (req, res) => {
-    fs.readFile('../data/stats.json', (err, data) => {
+    fs.readFile('data/stats.json', (err, data) => {
         if (err) {
             res.status(500).send('Erreur lors de la lecture du fichier')
         } else {
@@ -32,7 +36,7 @@ app.get('/getstats/:param', (req, res) => {
 })
 
 app.get('/setstats/:param/:value', (req, res) => {
-    fs.readFile('../data/stats.json', (err, data) => {
+    fs.readFile('./data/stats.json', (err, data) => {
         if (err) {
             res.status(500).send('Erreur lors de la lecture du fichier')
         } else {
@@ -41,7 +45,7 @@ app.get('/setstats/:param/:value', (req, res) => {
             let value = req.params.value
             if (stats[param] !== undefined) {
                 stats[param] = value
-                fs.writeFile('../data/stats.json', JSON.stringify(stats), (err) => {
+                fs.writeFile('./data/stats.json', JSON.stringify(stats), (err) => {
                     if (err) {
                         res.status(500).send('Erreur lors de la sauvegarde du fichier')
                     } else {
@@ -54,4 +58,5 @@ app.get('/setstats/:param/:value', (req, res) => {
         }
     })
 })
+
 app.listen(8080, () => { console.log("Le serveur API a été démarré sur le port 8080") })
