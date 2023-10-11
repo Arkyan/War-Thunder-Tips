@@ -1,0 +1,130 @@
+<html>
+
+
+<head>
+    <title>Forum - Mon Compte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Triad Forum</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Menu <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="./compte.html">Mon Compte</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Posts
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Creer un post</a>
+                <a class="dropdown-item" href="#">Voir mes posts</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Derniers posts</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      
+      <div class="container-xl px-4 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="./index.html">Menu</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
+            </ol>
+          </nav>
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Photo de profil</div>
+                    <div class="card-body text-center">
+                        <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                        <div class="small font-italic text-muted mb-4">Doit etre un lien vers une image en png ou jpg</div>
+                        <button class="btn btn-primary" type="button">Mettre une photo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">Détails du compte</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputUsername">Pseudo</label>
+                                <input class="form-control" id="inputUsername" type="text" placeholder="Entrez votre pseudo">
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputFirstName">Prénom</label>
+                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Entrez votre prénom">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLastName">Nom</label>
+                                    <input class="form-control" id="inputLastName" type="text" placeholder="Entrez votre nom de famille">
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputLocation">Pays</label>
+                                    <script>
+
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('GET', 'http://localhost:8080/getcountry');
+                                        xhr.send(null);
+                                        xhr.onreadystatechange = function () {
+                                            if (xhr.readyState === 4) {
+                                                var country = JSON.parse(xhr.responseText);
+                                                var select = document.getElementById("country_select");
+                                                for (var i = 0; i < country.length; i++) {
+                                                    var opt = document.createElement('option');
+                                                    opt.value = country[i].pays;
+                                                    opt.innerHTML = country[i].pays;
+                                                    select.appendChild(opt);
+                                                }
+                                            }
+                                        }
+
+                                    </script>
+                                    <select class="form-control" id="country_select">
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="inputEmailAddress">Adresse email</label>
+                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Entrez votre adresse email" />
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputPhone">Numero de téléphone</label>
+                                    <input class="form-control" id="inputPhone" type="tel" placeholder="Entrez votre numéro de téléphone" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="inputBirthday">Date de naissance</label>
+                                    <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Entrez votre date de naissance" />
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="button">Sauvegarder les modifications</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
