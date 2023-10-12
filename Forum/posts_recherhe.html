@@ -8,6 +8,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <meta charset="utf-8">
 </head>
 
 <body>
@@ -159,11 +161,10 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                         var reponse = JSON.parse(xhr.responseText);
-
-                        var taille = 1;
+                        var taille = 0;
                         for (var k in reponse) if (reponse.hasOwnProperty(k)) taille++;
 
-                        for (var i = 1; i < taille; i++) {
+                        for (var i = 0; i < taille; i++) {
                             var post = reponse[i];
                             var titre = post.titre;
                             var contenu = post.contenu;

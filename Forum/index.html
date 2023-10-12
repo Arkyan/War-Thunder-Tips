@@ -177,7 +177,13 @@
                             var id = post.id;
 
                             var div = document.getElementById("posts");
-                            div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;">Voir le post</button></div></div></div></div>';
+                            var tags = tags.split(",");
+                            var tags_total = "<div style='margin-left:10px; margin-bottom:10px;'>";
+                            for (var j = 0; j < tags.length; j++) {
+                                tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
+                            }
+                            tags_total = tags_total + "</div>";
+                            div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;">Voir le post</button></div> ' + tags_total + '</div></div></div>';
                         }
                     }
                 };
