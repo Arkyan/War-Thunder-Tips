@@ -1,0 +1,178 @@
+<html>
+
+<head>
+    <title>Forum - Mon Compte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <script src="./js/compte.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Triad Forum</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Menu <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="./compte.html">Mon compte</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Posts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Creer un post</a>
+                        <a class="dropdown-item" href="#">Voir mes posts</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Derniers posts</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container-xl px-4 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="./index.html">Menu</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
+            </ol>
+        </nav>
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Photo de profil</div>
+                    <div class="card-body text-center">
+                        <img class="img-account-profile rounded-circle mb-2" id="photo" alt="">
+                        <div class="small font-italic text-muted mb-4">Doit etre un lien vers une image en png ou jpg
+                        </div>
+                        <button class="btn btn-primary" type="button">Mettre une photo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">Détails du compte</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="username">Pseudo</label>
+                                <input class="form-control" id="username" type="text" placeholder="Entrez votre pseudo"
+                                    readonly>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="prenom">Prénom (facultatif)</label>
+                                    <input class="form-control" id="prenom" type="text"
+                                        placeholder="Entrez votre prénom">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="nom">Nom (facultatif)</label>
+                                    <input class="form-control" id="nom" type="text"
+                                        placeholder="Entrez votre nom de famille">
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="pays">Pays (facultatif)</label>
+                                    <script>
+
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('GET', 'http://localhost:3000/getcountries');
+                                        xhr.send(null);
+                                        xhr.onreadystatechange = function () {
+                                            if (xhr.readyState === 4) {
+                                                var country = JSON.parse(xhr.responseText);
+                                                var select = document.getElementById("pays");
+                                                for (var i = 0; i < country.length; i++) {
+                                                    var opt = document.createElement('option');
+                                                    opt.value = country[i].name;
+                                                    opt.innerHTML = country[i].name;
+                                                    select.appendChild(opt);
+                                                }
+                                            }
+                                        }
+
+                                    </script>
+                                    <select class="form-control" id="pays">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="email">Adresse email</label>
+                                <input class="form-control" id="email" type="email"
+                                    placeholder="Entrez votre adresse email" readonly />
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="telephone">Numero de téléphone (facultatif)</label>
+                                    <input class="form-control" id="telephone" type="tel"
+                                        placeholder="Entrez votre numéro de téléphone" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="dateNaissance">Date de naissance (facultatif)</label>
+                                    <input class="form-control" id="dateNaissance" type="date" name="birthday"
+                                        placeholder="Entrez votre date de naissance" />
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="envoyer_modif()" type="button">Sauvegarder les
+                                modifications</button>
+
+                            <script>
+                                function envoyer_modif() {
+                                    var prenom = document.getElementById("prenom").value;
+                                    var nom = document.getElementById("nom").value;
+                                    var pays = document.getElementById("pays").value;
+                                    var telephone = document.getElementById("telephone").value;
+                                    var dateNaissance = document.getElementById("dateNaissance").value;
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'http://localhost:3000/Forum/updateuser');
+                                    xhr.setRequestHeader("Content-Type", "application/json");
+
+                                    xhr.send(JSON.stringify({
+                                        "pseudo": localStorage.getItem("pseudo"),
+                                        "prenom": prenom,
+                                        "nom": nom,
+                                        "pays": pays,
+                                        "telephone": telephone,
+                                        "dateNaissance": dateNaissance
+                                    }));
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === 4) {
+                                            window.location.reload();
+                                        }
+                                    }
+                                }
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

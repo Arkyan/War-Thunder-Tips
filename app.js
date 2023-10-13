@@ -9,15 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('visiteurs').innerHTML = responseObject.visiteurs_total;
             document.getElementById('version').innerHTML = responseObject.version;
             var visiteurs = parseInt(document.getElementById('visiteurs').innerHTML) + 1
-            xhr_post_only.open('GET', 'https://watch2earn.zehosting.fr/getstats' + visiteurs, false, "username", "password");
-
-            xhr_post_only.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr_post_only.open('GET', 'http://localhost:3000/setstats/visiteurs_total/' + visiteurs, true);
 
             xhr_post_only.send(null);
         }
     }
 
-    xhr.open('GET', 'https://watch2earn.zehosting.fr/getstats', true);
+    xhr.open('GET', 'http://localhost:3000/getstats', true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(null);
 });
