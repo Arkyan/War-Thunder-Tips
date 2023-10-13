@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (username) {
 
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:3000/Forum/user/' + username, true);
+        xhr.open('GET', 'https://api.zehosting.fr/Forum/user/' + username, false);
+        xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
         xhr.onload = function () {
             var user = JSON.parse(xhr.responseText);
 

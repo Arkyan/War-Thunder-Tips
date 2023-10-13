@@ -110,7 +110,14 @@
                             console.log(tableau);
 
                             var xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'http://localhost:3000/posts', true);
+
+                            xhr.onload = function () {
+                                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                                    console.log(xhr.responseText);
+                                }
+                            }
+                            xhr.open('POST', 'https://api.zehosting.fr/posts', false);
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
                             xhr.setRequestHeader("Content-Type", "application/json");
                             xhr.send(JSON.stringify({
                                 "pseudo": pseudo,
@@ -120,12 +127,6 @@
                                 "image": image
                             }));
 
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                                    console.log(xhr.responseText);
-                                }
-                            };
-
                             alert("Post envoyé");
                         }
 
@@ -134,7 +135,8 @@
                             console.log(recherche);
 
                             var xhr = new XMLHttpRequest();
-                            xhr.open('GET', 'http://localhost:3000/posts/' + recherche, true);
+                            xhr.open('GET', 'https://api.zehosting.fr/posts/' + recherche, false);
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
 
                             xhr.send(null);
 
@@ -159,10 +161,7 @@
             <script>
 
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'http://localhost:3000/posts', true);
-                xhr.send(null);
-
-                xhr.onreadystatechange = function () {
+                xhr.onload = function () {
                     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
                         var reponse = JSON.parse(xhr.responseText);
 
@@ -189,7 +188,10 @@
                             div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;">Voir le post</button></div> ' + tags_total + '</div></div></div>';
                         }
                     }
-                };
+                }
+                xhr.open('GET', 'https://api.zehosting.fr/posts', false);
+                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+                xhr.send(null);
 
             </script>
         </div>
