@@ -87,6 +87,8 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="pays">Pays (facultatif)</label>
+                                    <select class="form-control" id="pays">
+                                    </select>
                                     <script>
 
                                         var xhr = new XMLHttpRequest();
@@ -103,13 +105,12 @@
                                                 }
                                             }
                                         }
+
                                         xhr.open('GET', 'https://api.zehosting.fr/getcountries', false);
                                         xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
                                         xhr.send(null);
 
                                     </script>
-                                    <select class="form-control" id="pays">
-                                    </select>
                                 </div>
                             </div>
                             <div class="mb-3">
