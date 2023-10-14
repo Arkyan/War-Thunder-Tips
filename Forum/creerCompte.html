@@ -101,7 +101,6 @@
 
                 xhr.open('POST', 'https://api.zehosting.fr/Forum/user/create', false);
                 xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                xhr.setRequestHeader("Content-Type", "application/json");
 
                 xhr.send(JSON.stringify({
                     "pseudo": pseudo,

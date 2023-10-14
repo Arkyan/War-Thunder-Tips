@@ -39,6 +39,15 @@
                 </li>
             </ul>
         </div>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="deco()">Se déconnecter</button>
+            <script>
+                function deco() {
+                    document.cookie = "username=;";
+                    window.location.href = "./index.html";
+                }
+            </script>
+        </div>
     </nav>
 
 
