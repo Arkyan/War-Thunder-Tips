@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('prenom').value = user.prenom ? user.prenom : "";
             document.getElementById('dateNaissance').value = user.dateNaissance ? user.dateNaissance : "";
             document.getElementById('pays').value = user.pays ? user.pays : "";
-            document.getElementById('telephone').value = user.tel ? user.tel : "";
+            document.getElementById('telephone').value = user.telephone ? user.telephone : "";
             document.getElementById('photo').src = user.photo ? user.photo : "http://bootdey.com/img/Content/avatar/avatar1.png";
         }
         xhr.send();
