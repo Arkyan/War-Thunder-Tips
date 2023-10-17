@@ -1,1 +1,24 @@
-{"1":{"pseudo":"aa","mail":"aa","mdp":"aa","id":1},"2":{"pseudo":"aa2","mail":"aa2","mdp":"aa","id":2},"3":{"pseudo":"aaz","mail":"aaz","mdp":"aa","id":3}}
+{
+    "1": {
+        "pseudo": "aa",
+        "prenom": "test",
+        "nom": "test2",
+        "pays": "France",
+        "telephone": "",
+        "dateNaissance": "",
+        "id": 1,
+        "mail": "aa",
+        "mdp": "aa"
+    },
+    "2": {
+        "pseudo": "aa2",
+        "prenom": "",
+        "nom": "",
+        "pays": "Bangladesh",
+        "telephone": "",
+        "dateNaissance": "",
+        "id": 2,
+        "mail": "aa2",
+        "mdp": "aa"
+    }
+}

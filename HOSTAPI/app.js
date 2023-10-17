@@ -237,9 +237,10 @@ app.post("/Forum/updateuser", (req, res) => {
             let user = req.body
             for (var k in users) {
                 if (users.hasOwnProperty(k)) {
-                    console.log(users[k].pseudo)
-                    console.log(user.pseudo)
                     if (users[k].pseudo == user.pseudo) {
+                        user.id = users[k].id
+                        user.mail = users[k].mail
+                        user.mdp = users[k].mdp
                         users[k] = user
                     }
                 }
