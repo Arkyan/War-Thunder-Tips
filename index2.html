@@ -1,0 +1,22 @@
+<script>
+    var xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var news = xhr.responseText;
+
+            //convert response in html  
+            //écrire sur le document la réponse dans le body 
+            document.getElementById("news").innerHTML = news;
+        }
+    };
+
+    xhr.open('GET', 'https://api.zehosting.fr/getnews');
+
+    xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+    xhr.send(null);
+</script>
+
+<body>
+    <div id="news"></div>
+</body>

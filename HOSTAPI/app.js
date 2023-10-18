@@ -5,6 +5,8 @@ const fs = require('fs')
 var io = require('socket.io')(server, {});
 const cors = require('cors')
 
+const request = require('request');
+
 app.use(cors())
 app.use(express.json())
 
@@ -50,6 +52,17 @@ app.get('/getstats', (req, res) => {
             res.send(JSON.parse(data))
         }
     })
+})
+
+app.get('/getnews', (req, res) => {
+    //request to get the news
+    request('http://steamcommunity.com/games/236390/rss/', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        } else {
+            res.status(500).send('Erreur lors de la récupération des news :' + error + response.statusCode)
+        }
+    });
 })
 
 app.get('/getstats/:param', (req, res) => {
