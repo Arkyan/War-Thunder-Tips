@@ -7,13 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
             responseObject = JSON.parse(xhr.responseText);
 
             document.getElementById('visiteurs').innerHTML = responseObject.visiteurs_total;
-            document.getElementById('version').innerHTML = responseObject.version;
             var visiteurs = parseInt(document.getElementById('visiteurs').innerHTML) + 1
             xhr_post_only.open('GET', 'https://api.zehosting.fr/setstats/visiteurs_total/' + visiteurs, false);
 
             xhr_post_only.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
 
             xhr_post_only.send(null);
+
+            document.getElementById('utilisateurs').innerHTML = responseObject.users_total;
+            document.getElementById('posts').innerHTML = responseObject.posts_total;
         }
     }
 
