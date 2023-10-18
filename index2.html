@@ -1,22 +1,55 @@
-<script>
-    var xhr = new XMLHttpRequest();
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            var news = xhr.responseText;
-
-            //convert response in html  
-            //écrire sur le document la réponse dans le body 
-            document.getElementById("news").innerHTML = news;
-        }
-    };
-
-    xhr.open('GET', 'https://api.zehosting.fr/getnews');
-
-    xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-    xhr.send(null);
-</script>
+<html>
 
 <body>
-    <div id="news"></div>
+    <div id="flux-rss"></div>
 </body>
+
+<script>
+    // Fonction pour traiter le flux RSS
+    function traiterFluxRSS(xml) {
+        var items = xml.querySelectorAll("item");
+
+        // Boucle à travers chaque élément du flux
+        items.forEach(function (item) {
+            var titre = item.querySelector("title").textContent;
+            var lien = item.querySelector("link").textContent;
+            var description = item.querySelector("description").textContent;
+            var date = item.querySelector("pubDate").textContent;
+
+            // Créer un élément HTML pour chaque article
+            var article = document.createElement("div");
+            article.innerHTML = `
+      <h2><a href="${lien}">${titre}</a></h2>
+      <p>${description}</p>
+      <p>Date de publication : ${date}</p>
+      <hr>
+    `;
+
+            // Ajouter l'article au conteneur
+            document.getElementById("flux-rss").appendChild(article);
+        });
+    }
+
+    // Récupérer le flux RSS en utilisant XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                // Convertir la réponse en XML
+                var parser = new DOMParser();
+                var xml = parser.parseFromString(xhr.responseText, "application/xml");
+
+                // Appeler la fonction pour traiter le flux
+                traiterFluxRSS(xml);
+            } else {
+                console.error("Erreur lors de la récupération du flux RSS");
+            }
+        }
+    };
+    xhr.open('GET', 'https://api.zehosting.fr/getnews');
+    xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+    xhr.send();
+
+</script>
+
+</html>
