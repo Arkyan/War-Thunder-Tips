@@ -3,3 +3,5 @@ http://steamcommunity.com/games/236390/rss/
 https://store.steampowered.com/feeds/news/app/236390/?cc=FR&l=french&snr=1_2108_9__2107
 
 https://store.steampowered.com/news/app/236390
+
+http://forum.warthunder.com/index.php?/forum/26-official-project-news-read-only/

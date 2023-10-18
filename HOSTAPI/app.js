@@ -55,6 +55,7 @@ app.get('/getstats', (req, res) => {
 })
 
 app.get('/getnews', (req, res) => {
+<<<<<<< Updated upstream
     //request to get the news
     request('http://steamcommunity.com/games/236390/rss/', function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -63,6 +64,18 @@ app.get('/getnews', (req, res) => {
             res.status(500).send('Erreur lors de la récupération des news :' + error + response.statusCode)
         }
     });
+=======
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://store.steampowered.com/feeds/news/app/236390/?cc=FR&l=french&snr=1_2108_9__2107', true);
+    xhr.send();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+            var xml = xhr.responseXML;
+            res.send(xml)
+        }
+    }
+>>>>>>> Stashed changes
 })
 
 app.get('/getstats/:param', (req, res) => {
