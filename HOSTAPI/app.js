@@ -294,6 +294,34 @@ app.post("/Forum/updateuser", (req, res) => {
     })
 })
 
+app.post("/Forum/updatephoto", (req, res) => {
+    fs.readFile('users.json', (err, data) => {
+        if (err) {
+            res.status(500).send('Erreur lors de la lecture du fichier users')
+        } else {
+            let users = JSON.parse(data)
+            let user = req.body
+            for (var k in users) {
+                if (users.hasOwnProperty(k)) {
+                    if (users[k].pseudo == user.pseudo) {
+                        var user_final = users[k]
+                        user_final.photo = user.image
+                        users[k] = user_final
+                        console.log(users[k])
+                    }
+                }
+            }
+            fs.writeFile('users.json', JSON.stringify(users), (err) => {
+                if (err) {
+                    res.status(500).send('Erreur lors de la sauvegarde du fichier users')
+                } else {
+                    res.send('Utilisateur modifié')
+                }
+            })
+        }
+    })
+})
+
 app.get("/getcountries", (req, res) => {
     fs.readFile('countries.json', (err, data) => {
         if (err) {

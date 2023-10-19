@@ -181,13 +181,13 @@
                         <div class="small font-italic text-muted mb-4">Doit etre un lien vers une image en png ou jpg
                         </div>
                         <button class="btn btn-primary" type="button" data-toggle="modal"
-                            data-target="#creerPostModal">Mettre une photo</button>
+                            data-target="#mettrePhotoModal">Mettre une photo</button>
                     </div>
                 </div>
             </div>
 
-            <div class="modal fade" id="creerPostModal" tabindex="-1" role="dialog"
-                aria-labelledby="creerPostModalTitle" aria-hidden="true">
+            <div class="modal fade" id="mettrePhotoModal" tabindex="-1" role="dialog"
+                aria-labelledby="mettrePhotoModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -200,7 +200,7 @@
                             Suivez les instructions ci-dessous pour mettre une photo de profil
                             <hr>
                             <label for="pseudo">Lien de l'image (doit finir par .png ou .jpg)</label>
-                            <input type="text" class="form-control" id="image" placeholder="Entrez le lien de l'image">
+                            <input type="text" class="form-control" id="image_modal" placeholder="Entrez le lien de l'image">
                             <hr>
                             <div class="progress" id="progress" hidden>
                                 <div class="progress-bar" id="progress_bar" role="progressbar" style="width: 0%"
@@ -213,11 +213,11 @@
 
                             <script>
                                 function Envoyer_Post() {
-                                    var lien = document.getElementById("image").value;
+                                    var lien = document.getElementById("image_modal").value;
                                     if (lien.endsWith(".png") || lien.endsWith(".jpg")) {
                                         console.log("ok");
-                                        document.getElementById("image").style.borderColor = "green";
-                                        document.getElementById("image").disabled = true;
+                                        document.getElementById("image_modal").style.borderColor = "green";
+                                        document.getElementById("image_modal").disabled = true;
                                         document.getElementById("progress").hidden = false;
                                         var progress_bar = document.getElementById("progress_bar");
                                         var progress_interval = setInterval(function () {
@@ -229,11 +229,26 @@
                                                 progress_bar.style.width = "1%";
                                                 console.log("fini");
                                                 clearInterval(progress_interval);
+
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.onload = function() {
+                                                    if (xhr.readyState === 4) {
+                                                        console.log(xhr.responseText);
+                                                    }
+                                                }
+
+                                                xhr.open('POST', 'http://localhost:8083/Forum/updatephoto', false);
+                                                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+                                                xhr.setRequestHeader("Content-Type", "application/json");
+                                                xhr.send(JSON.stringify({
+                                                    "pseudo": sessionStorage.getItem("username"),
+                                                    "image": lien
+                                                }));
                                             }
-                                        }, 100);
+                                        }, 30);
                                     } else {
-                                        document.getElementById("image").value = "";
-                                        document.getElementById("image").style.borderColor = "red";
+                                        document.getElementById("image_modal").value = "";
+                                        document.getElementById("image_modal").style.borderColor = "red";
                                         alert("Le lien doit finir par .png ou .jpg");
                                     }
 

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.onload = function () {
             var user = JSON.parse(xhr.responseText);
 
+            console.log(user);
             document.getElementById('username').value = user.pseudo ? user.pseudo : "";
             document.getElementById('email').value = user.mail ? user.mail : "";
             document.getElementById('nom').value = user.nom ? user.nom : "";
