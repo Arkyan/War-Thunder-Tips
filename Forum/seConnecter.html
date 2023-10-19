@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    <script src="./js/connection.js"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="../index.html">Triad Forum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -167,13 +166,11 @@
         <!-- zone de connexion -->
 
         <h1>Connexion</h1>
-        <div id="alert_div">
-
-        </div>
+        <div id="alert_div"> </div>
         <hr>
-        <input class="form-control" type="text" id="pseudo" name="pseudo" placeholder="Pseudo" required>
+        <input class="form-control" type="text" id="connect_pseudo" name="pseudo" placeholder="Pseudo" required>
         <hr>
-        <input class="form-control" type="password" id="mdp" name="mdp" placeholder="Mot de passe" required>
+        <input class="form-control" type="password" id="connect_mdp" name="mdp" placeholder="Mot de passe" required>
         <hr>
         <button class="btn btn-primary" type="button" onclick="connection()">Se connecter</button>
         <hr>
@@ -182,19 +179,19 @@
 
         <script>
             function connection() {
-                var pseudo = document.getElementById("pseudo").value;
-                var mdp = document.getElementById("mdp").value;
+                var pseudo = document.getElementById("connect_pseudo").value;
+                var mdp = document.getElementById("connect_mdp").value;
                 var xhr = new XMLHttpRequest();
 
                 xhr.onload = function () {
                     if (xhr.status == 200) {
                         if (xhr.responseText.startsWith("Utilisateur non trouvé")) {
-                            document.getElementById("pseudo").style.borderColor = "red";
-                            document.getElementById("mdp").style.borderColor = "red";
+                            document.getElementById("connect_pseudo").style.borderColor = "red";
+                            document.getElementById("connect_mdp").style.borderColor = "red";
                             document.getElementById("alert_div").innerHTML = "<div class='alert alert-danger' role='alert'>Utilisateur non trouvé</div>";
                         } else {
-                            document.getElementById("pseudo").style.borderColor = "green";
-                            document.getElementById("mdp").style.borderColor = "green";
+                            document.getElementById("connect_pseudo").style.borderColor = "green";
+                            document.getElementById("connect_mdp").style.borderColor = "green";
                             document.getElementById("alert_div").innerHTML = "<div class='alert alert-success' role='alert'>Connexion réussie</div>";
                             sessionStorage.setItem("username", pseudo);
                             window.location.href = "./compte.html";
