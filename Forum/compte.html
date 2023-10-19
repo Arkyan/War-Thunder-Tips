@@ -43,7 +43,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" onclick="deco()">Se déconnecter</button>
             <script>
                 function deco() {
-                    document.cookie = "username=;";
+                    sessionStorage.removeItem("username");
                     window.location.href = "./index.html";
                 }
             </script>
@@ -222,7 +222,7 @@
                                     xhr.setRequestHeader("Content-Type", "application/json");
 
                                     xhr.send(JSON.stringify({
-                                        "pseudo": document.cookie.split("=")[1],
+                                        "pseudo": sessionStorage.getItem("username"),
                                         "prenom": prenom,
                                         "nom": nom,
                                         "pays": pays,

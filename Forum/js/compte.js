@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    cookies = document.cookie.split(';');
 
-    var username = cookies[0].split('=')[1];
+    var username = sessionStorage.getItem('username');
     if (username) {
 
         var xhr = new XMLHttpRequest();
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         xhr.send();
     } else {
-        console.log("Pas de session trouvé");
         window.location.href = "seConnecter.html";
     }
 });

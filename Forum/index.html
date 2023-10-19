@@ -1,201 +1,234 @@
 <html>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var logged = false
+        var username = sessionStorage.getItem("username");
+        if (username != null) {
+            logged = true
+            document.getElementById("pseudo").value = sessionStorage.getItem("username");
+
+            document.getElementById("titre").disabled = false;
+            document.getElementById("contenu").disabled = false;
+            document.getElementById("tags").disabled = false;
+            document.getElementById("image").disabled = false;
+            document.getElementById("envoyer").disabled = false;
+        } else {
+            document.getElementById("info_modal").hidden = false;
+            document.getElementById("info_modal").innerHTML = "Vous devez être connecté pour pouvoir créer un post";
+        }
+    });
+</script>
+
 <head>
     <title>Forum</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/loader.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="../index.html">Triad Forum</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div id="loader"></div>
+    <div style="display: none;" id="page" class="animate-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="../index.html">Triad Forum</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="./index.html">Menu</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./compte.html">Mon compte</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Posts
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" data-toggle="modal" data-target="#creerPostModal">Creer un post</a>
-                        <a class="dropdown-item" href="#">Voir mes posts</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Derniers posts</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un post" id="recherche">
-                <button class="btn btn-outline-success my-2 my-sm-0" onclick="recherche()">Rechercher</button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./index.html">Menu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./compte.html">Mon compte</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Posts
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#creerPostModal">Creer un post</a>
+                            <a class="dropdown-item" href="#">Voir mes posts</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Derniers posts</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un post" id="recherche">
+                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="recherche()">Rechercher</button>
+                </div>
             </div>
-        </div>
-    </nav>
-    <!-- Modal -->
-    <div class="modal fade" id="creerPostModal" tabindex="-1" role="dialog" aria-labelledby="creerPostModalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Creer un post</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Suivez les instructions ci-dessous pour creer un post.
-                    <hr>
-                    <label for="pseudo">Pseudo</label>
-                    <input type="text" class="form-control" id="pseudo" placeholder="Pseudo">
-                    <hr>
-                    <label for="titre">Titre du post</label>
-                    <input type="text" class="form-control" id="titre" placeholder="Titre du post">
-                    <hr>
-                    <label for="contenu">Contenu du post</label>
-                    <textarea class="form-control" id="contenu" rows="3" placeholder="Contenu du post"></textarea>
-                    <hr>
-                    <label for="tags">Tags</label>
-                    <input type="text" class="form-control" id="tags" placeholder="Tags">
-                    <hr>
-                    <label for="image">Image</label>
-                    <input type="text" class="form-control" id="image" placeholder="Image">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" onclick="Envoyer_Post()">Envoyer</button>
+        </nav>
+        <!-- Modal -->
+        <script>
+            var username = sessionStorage.getItem("username");
+        </script>
+        <div class="modal fade" id="creerPostModal" tabindex="-1" role="dialog" aria-labelledby="creerPostModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Creer un post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Suivez les instructions ci-dessous pour creer un post.
+                        <!-- alert info en rouge -->
+                        <div class="alert alert-danger" role="alert" id="info_modal" hidden></div>
+                        <hr>
+                        <label for="pseudo">Pseudo</label>
+                        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" readonly>
+                        <hr>
+                        <label for="titre">Titre du post</label>
+                        <input type="text" class="form-control" id="titre" placeholder="Titre du post" disabled>
+                        <hr>
+                        <label for="contenu">Contenu du post</label>
+                        <textarea class="form-control" id="contenu" rows="3" placeholder="Contenu du post"
+                            disabled></textarea>
+                        <hr>
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" id="tags" placeholder="Tags" disabled>
+                        <hr>
+                        <label for="image">Image</label>
+                        <input type="text" class="form-control" id="image" placeholder="Image" disabled>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" onclick="Envoyer_Post()" id="envoyer"
+                            disabled>Envoyer</button>
 
-                    <script>
-                        function Envoyer_Post() {
-                            var pseudo = document.getElementById("pseudo").value;
-                            var titre = document.getElementById("titre").value;
-                            var contenu = document.getElementById("contenu").value;
-                            var tags = document.getElementById("tags").value;
-                            var image = document.getElementById("image").value;
+                        <script>
+                            function Envoyer_Post() {
+                                var pseudo = document.getElementById("pseudo").value;
+                                var titre = document.getElementById("titre").value;
+                                var contenu = document.getElementById("contenu").value;
+                                var tags = document.getElementById("tags").value;
+                                var image = document.getElementById("image").value;
 
-                            if (pseudo == "" || titre == "" || contenu == "" || tags == "") {
-                                alert("Veuillez remplir tous les champs");
-                                return;
-                            } else {
-                                if (image == "") {
-                                    image = "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg";
+                                if (pseudo == "" || titre == "" || contenu == "" || tags == "") {
+                                    alert("Veuillez remplir tous les champs");
+                                    return;
                                 } else {
-                                    //vérifier que l'image est bien une image qui fini par .png ou .jpg et qui commence par http ou https
-                                    if (image.startsWith("http://") || image.startsWith("https://")) {
-                                        if (image.endsWith(".png") || image.endsWith(".jpg")) {
-                                            //tout est bon
+                                    if (image == "") {
+                                        image = "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg";
+                                    } else {
+                                        //vérifier que l'image est bien une image qui fini par .png ou .jpg et qui commence par http ou https
+                                        if (image.startsWith("http://") || image.startsWith("https://")) {
+                                            if (image.endsWith(".png") || image.endsWith(".jpg")) {
+                                                //tout est bon
+                                            } else {
+                                                alert("L'image doit être au format .png ou .jpg");
+                                                return;
+                                            }
                                         } else {
-                                            alert("L'image doit être au format .png ou .jpg");
+                                            alert("L'image doit commencer par http:// ou https://");
                                             return;
                                         }
-                                    } else {
-                                        alert("L'image doit commencer par http:// ou https://");
-                                        return;
                                     }
                                 }
-                            }
 
-                            var tableau = [pseudo, titre, contenu, tags, image];
-                            console.log(tableau);
+                                var tableau = [pseudo, titre, contenu, tags, image];
+                                console.log(tableau);
 
-                            var xhr = new XMLHttpRequest();
+                                var xhr = new XMLHttpRequest();
 
-                            xhr.onload = function () {
-                                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                                    console.log(xhr.responseText);
+                                xhr.onload = function () {
+                                    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                                        console.log(xhr.responseText);
+                                    }
                                 }
+                                xhr.open('POST', 'https://api.zehosting.fr/posts', false);
+                                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                                xhr.send(JSON.stringify({
+                                    "pseudo": pseudo,
+                                    "titre": titre,
+                                    "contenu": contenu,
+                                    "tags": tags,
+                                    "image": image
+                                }));
+
+                                alert("Post envoyé");
                             }
-                            xhr.open('POST', 'https://api.zehosting.fr/posts', false);
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                            xhr.setRequestHeader("Content-Type", "application/json");
-                            xhr.send(JSON.stringify({
-                                "pseudo": pseudo,
-                                "titre": titre,
-                                "contenu": contenu,
-                                "tags": tags,
-                                "image": image
-                            }));
 
-                            alert("Post envoyé");
-                        }
+                            function recherche() {
+                                var recherche = document.getElementById("recherche").value;
+                                console.log(recherche);
 
-                        function recherche() {
-                            var recherche = document.getElementById("recherche").value;
-                            console.log(recherche);
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('GET', 'https://api.zehosting.fr/posts/' + recherche, false);
+                                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
 
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('GET', 'https://api.zehosting.fr/posts/' + recherche, false);
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+                                xhr.send(null);
 
-                            xhr.send(null);
+                                window.location.href = "./posts_recherche.html?recherche=" + recherche;
+                            }
+                        </script>
 
-                            window.location.href = "./posts_recherche.html?recherche=" + recherche;
-                        }
-                    </script>
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
+        <div class="container">
 
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Posts</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Posts</h2>
+                </div>
             </div>
-        </div>
 
-        <div id="posts">
-            <script>
+            <div id="posts">
+                <script>
 
-                var xhr = new XMLHttpRequest();
-                xhr.onload = function () {
-                    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                        var reponse = JSON.parse(xhr.responseText);
+                    var xhr = new XMLHttpRequest();
+                    xhr.onload = function () {
+                        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                            var reponse = JSON.parse(xhr.responseText);
 
-                        var taille = 1;
-                        for (var k in reponse) if (reponse.hasOwnProperty(k)) taille++;
+                            var taille = 1;
+                            for (var k in reponse) if (reponse.hasOwnProperty(k)) taille++;
 
-                        for (var i = 1; i < taille; i++) {
-                            var post = reponse[i];
-                            var titre = post.titre;
-                            var contenu = post.contenu;
-                            var pseudo = post.pseudo;
-                            var image = post.image;
-                            var tags = post.tags;
-                            var date = post.date;
-                            var id = post.id;
+                            for (var i = 1; i < taille; i++) {
+                                var post = reponse[i];
+                                var titre = post.titre;
+                                var contenu = post.contenu;
+                                var pseudo = post.pseudo;
+                                var image = post.image;
+                                var tags = post.tags;
+                                var date = post.date;
+                                var id = post.id;
 
-                            var div = document.getElementById("posts");
-                            var tags = tags.split(",");
-                            var tags_total = "<div style='margin-left:10px; margin-bottom:10px;'>";
-                            for (var j = 0; j < tags.length; j++) {
-                                tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
+                                var div = document.getElementById("posts");
+                                var tags = tags.split(",");
+                                var tags_total = "<div style='margin-left:10px; margin-bottom:10px;'>";
+                                for (var j = 0; j < tags.length; j++) {
+                                    tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
+                                }
+                                tags_total = tags_total + "</div>";
+                                div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;">Voir le post</button></div> ' + tags_total + '</div></div></div>';
                             }
-                            tags_total = tags_total + "</div>";
-                            div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;">Voir le post</button></div> ' + tags_total + '</div></div></div>';
                         }
                     }
-                }
-                xhr.open('GET', 'https://api.zehosting.fr/posts', false);
-                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                xhr.send(null);
+                    xhr.open('GET', 'https://api.zehosting.fr/posts', false);
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
+                    xhr.send(null);
 
-            </script>
+                </script>
+            </div>
         </div>
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
