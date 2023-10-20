@@ -122,13 +122,12 @@
                             }
 
                             var tableau = [pseudo, titre, contenu, tags, image];
-                            console.log(tableau);
 
                             var xhr = new XMLHttpRequest();
 
                             xhr.onload = function () {
                                 if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                                    console.log(xhr.responseText);
+                                    window.location.reload();
                                 }
                             }
                             xhr.open('POST', 'https://api.zehosting.fr/posts', false);
@@ -147,7 +146,6 @@
 
                         function recherche() {
                             var recherche = document.getElementById("recherche").value;
-                            console.log(recherche);
 
                             var xhr = new XMLHttpRequest();
                             xhr.open('GET', 'https://api.zehosting.fr/posts/' + recherche, false);
@@ -177,7 +175,7 @@
                 <div class="card mb-4 mb-xl-0">
                     <div class="card-header">Photo de profil</div>
                     <div class="card-body text-center">
-                        <img class="img-account-profile rounded-circle mb-2" id="photo" alt="">
+                        <img class="img-account-profile rounded-circle mb-2" id="photo_profil" alt="">
                         <div class="small font-italic text-muted mb-4">Doit etre un lien vers une image en png ou jpg
                         </div>
                         <button class="btn btn-primary" type="button" data-toggle="modal"
@@ -200,7 +198,8 @@
                             Suivez les instructions ci-dessous pour mettre une photo de profil
                             <hr>
                             <label for="pseudo">Lien de l'image (doit finir par .png ou .jpg)</label>
-                            <input type="text" class="form-control" id="image_modal" placeholder="Entrez le lien de l'image">
+                            <input type="text" class="form-control" id="image_modal"
+                                placeholder="Entrez le lien de l'image">
                             <hr>
                             <div class="progress" id="progress" hidden>
                                 <div class="progress-bar" id="progress_bar" role="progressbar" style="width: 0%"
@@ -208,36 +207,39 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                            <button type="button" class="btn btn-primary" onclick="Envoyer_Post()">Envoyer</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                id="modal_close">Fermer</button>
+                            <button type="button" class="btn btn-primary" onclick="Envoyer_Post()"
+                                id="modal_send">Envoyer</button>
 
                             <script>
                                 function Envoyer_Post() {
                                     var lien = document.getElementById("image_modal").value;
                                     if (lien.endsWith(".png") || lien.endsWith(".jpg")) {
-                                        console.log("ok");
                                         document.getElementById("image_modal").style.borderColor = "green";
                                         document.getElementById("image_modal").disabled = true;
                                         document.getElementById("progress").hidden = false;
+
+                                        document.getElementById("modal_close").disabled = true;
+                                        document.getElementById("modal_send").disabled = true;
+
                                         var progress_bar = document.getElementById("progress_bar");
                                         var progress_interval = setInterval(function () {
                                             var width = parseInt(progress_bar.style.width);
                                             if (width < 100) {
                                                 progress_bar.style.width = (width + 1) + "%";
-                                                console.log("Status : " + width + "%")
                                             } else {
                                                 progress_bar.style.width = "1%";
-                                                console.log("fini");
                                                 clearInterval(progress_interval);
 
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.onload = function() {
+                                                xhr.onload = function () {
                                                     if (xhr.readyState === 4) {
-                                                        console.log(xhr.responseText);
+                                                        window.location.reload();
                                                     }
                                                 }
 
-                                                xhr.open('POST', 'http://localhost:8083/Forum/updatephoto', false);
+                                                xhr.open('POST', 'https://api.zehosting.fr/Forum/updatephoto', false);
                                                 xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
                                                 xhr.setRequestHeader("Content-Type", "application/json");
                                                 xhr.send(JSON.stringify({

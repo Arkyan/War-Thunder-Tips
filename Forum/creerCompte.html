@@ -195,6 +195,11 @@
                     return;
                 }
 
+                if (pseudo.includes('"') || pseudo.includes("'")) {
+                    document.getElementById("alert_div").innerHTML = '<div class="alert alert-danger" role="alert">Le pseudo ne doit pas contenir de guillemets que ce soit (") ou (\')</div>';
+                    return;
+                }
+
                 if (pseudo == "" || mail == "" || mdp == "" || mdp2 == "") {
                     document.getElementById("alert_div").innerHTML = '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs</div>';
                     return;
