@@ -4,6 +4,6 @@ html {
     font-family:Arial, Helvetica, sans-serif;
     }
 
-.ap {
-    text-align: center;
-    }
+imgap{
+    display: none;
+}
