@@ -114,11 +114,9 @@
         var afficher = []
         function afficher_image(image) {
             if (afficher.includes(image) == false) {
-                console.log("afficher")
                 document.getElementById(image).hidden = false;
                 afficher.push(image)
             } else {
-                console.log("cacher")
                 document.getElementById(image).hidden = true;
                 afficher.splice(afficher.indexOf(image), 1)
             }
