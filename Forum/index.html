@@ -11,12 +11,15 @@
     <script src="./js/loader.js" type="text/javascript"></script>
 
     <script src="./js/session.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
     <div id="loader"></div>
+    <!-- page remonter en haut -->
+    <a href="#hautpage"><button class="btn btn-primary bouton_haut">Haut de page</button></a>
     <div style="display: none;" id="page" class="animate-bottom">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="hautpage">
             <a class="navbar-brand" href="../index.html">Triad Forum</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -181,7 +184,7 @@
                             var taille = 1;
                             for (var k in reponse) if (reponse.hasOwnProperty(k)) taille++;
 
-                            for (var i = 1; i < taille; i++) {
+                            for (var i = taille - 1; i > 0; i--) {
                                 var post = reponse[i];
                                 var titre = post.titre;
                                 var contenu = post.contenu;
@@ -193,7 +196,7 @@
 
                                 var div = document.getElementById("posts");
                                 var tags = tags.split(",");
-                                var tags_total = "<div style='margin-left:10px; margin-bottom:10px;'>";
+                                var tags_total = "<div class='tags'>";
                                 for (var j = 0; j < tags.length; j++) {
                                     tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
                                 }
