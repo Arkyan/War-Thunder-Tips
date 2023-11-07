@@ -1,0 +1,11 @@
+.navbar {
+    background-color: rgba(95, 95, 95, 0.3);
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.elements_navbar {
+    font-size: 30px;
+    color: rgb(0, 0, 0, 0.65);
+}

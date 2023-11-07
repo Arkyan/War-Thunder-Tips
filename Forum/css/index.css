@@ -1,0 +1,16 @@
+.tags {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.bouton_haut {
+    /* Centre en bas a droite de la page si la page est descendue */
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 100;
+
+    /* Ajout d'ombre */
+    box-shadow: 0px 0px 5px #000000;
+}

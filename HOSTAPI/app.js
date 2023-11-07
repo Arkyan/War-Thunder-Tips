@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 var server = require('http').Server(app);
 const fs = require('fs')
-var io = require('socket.io')(server, {});
 const cors = require('cors')
 
 const request = require('request');

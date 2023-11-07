@@ -9,6 +9,8 @@
 
     <script src="https://kit.fontawesome.com/88d1eb505e.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
@@ -19,15 +21,13 @@
                 <div class="col-md-12">
                     <h1>Triad Corporation</h1>
 
-                    <div
-                        style="background-color: rgba(95, 95, 95, 0.3); text-align: center; padding: 10px; border-radius: 10px;">
-                        <a style="font-size: 30px; color: rgb(0, 0, 0, 0.65);" href="index.html"><i
-                                class="fa-solid fa-house-user"></i> Menu&ensp;</a>
-                        <a style="font-size: 30px; color: rgb(0, 0, 0, 0.65);" href="./Guide/TriadTips.html"><i
+                    <div class="navbar">
+                        <a class="elements_navbar" href="index.html"><i class="fa-solid fa-house-user"></i>
+                            Menu&ensp;</a>
+                        <a class="elements_navbar" href="./Guide/TriadTips.html"><i
                                 class="fa-solid fa-book-bookmark"></i>
                             Guide&ensp;</a>
-                        <a style="font-size: 30px; color: rgb(0, 0, 0, 0.65);" href="./Forum/index.html"><i
-                                class="fa-solid fa-users-line"></i>
+                        <a class="elements_navbar" href="./Forum/index.html"><i class="fa-solid fa-users-line"></i>
                             Forum</a>
                     </div>
 
@@ -118,6 +118,44 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <h3>Liens utiles</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Lien</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Triad Corporation</th>
+                    <td>Site web de la Triad Corporation</td>
+                    <td><a href="https://arkyan.github.io">https://arkyan.github.io</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">Triad Corporation - Forum</th>
+                    <td>Forum de la Triad Corporation</td>
+                    <td><a href="https://arkyan.github.io/Forum">https://arkyan.github.io/Forum</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">Triad Corporation - Guide</th>
+                    <td>Guide de la Triad Corporation</td>
+                    <td><a
+                            href="https://arkyan.github.io/Guide/TriadTips.html">https://arkyan.github.io/Guide</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Triad Corporation - Discord</th>
+                    <td>Discord de la Triad Corporation</td>
+                    <td><a href="https://discord.com/invite/wNtCyPUXPU"
+                            target="_blank">https://discord.com/invite/wNtCyPUXPU</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 <script>
@@ -155,7 +193,16 @@
         document.getElementById("news_link1").href = link1;
 
         var date1_var = new Date(date1);
-        var date1_final = date1_var.getDate() + "/" + (date1_var.getMonth() + 1) + "/" + date1_var.getFullYear() + " à " + date1_var.getHours() + "h" + date1_var.getMinutes();
+        var heures = date1_var.getHours();
+        if (heures < 10) {
+            heures = "0" + heures;
+        }
+
+        var minutes = date1_var.getMinutes();
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        var date1_final = date1_var.getDate() + "/" + (date1_var.getMonth() + 1) + "/" + date1_var.getFullYear() + " à " + heures + "h" + minutes;
         document.getElementById("news_date1").innerHTML = "Date : " + date1_final;
 
         /*
@@ -190,7 +237,16 @@
         document.getElementById("news_link2").href = link2;
 
         var date2_var = new Date(date2);
-        var date2_final = date2_var.getDate() + "/" + (date2_var.getMonth() + 1) + "/" + date2_var.getFullYear() + " à " + date2_var.getHours() + "h" + date2_var.getMinutes();
+        var heures = date2_var.getHours();
+        if (heures < 10) {
+            heures = "0" + heures;
+        }
+
+        var minutes = date2_var.getMinutes();
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        var date2_final = date2_var.getDate() + "/" + (date2_var.getMonth() + 1) + "/" + date2_var.getFullYear() + " à " + heures + "h" + minutes;
         document.getElementById("news_date2").innerHTML = "Date : " + date2_final;
 
         /*
@@ -223,7 +279,16 @@
         document.getElementById("news_link3").href = link3;
 
         var date3_var = new Date(date3);
-        var date3_final = date3_var.getDate() + "/" + (date3_var.getMonth() + 1) + "/" + date3_var.getFullYear() + " à " + date3_var.getHours() + "h" + date3_var.getMinutes();
+        var heures = date3_var.getHours();
+        if (heures < 10) {
+            heures = "0" + heures;
+        }
+
+        var minutes = date3_var.getMinutes();
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        var date3_final = date3_var.getDate() + "/" + (date3_var.getMonth() + 1) + "/" + date3_var.getFullYear() + " à " + heures + "h" + minutes;
         document.getElementById("news_date3").innerHTML = "Date : " + date3_final;
     }
 
