@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <script src="./js/compte.js"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="../index.html">Triad Forum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -42,12 +41,6 @@
 
             <div class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-success my-2 my-sm-0" onclick="deco()">Se déconnecter</button>
-                <script>
-                    function deco() {
-                        sessionStorage.removeItem("username");
-                        window.location.href = "./index.html";
-                    }
-                </script>
             </div>
         </div>
     </nav>
@@ -90,72 +83,6 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="button" class="btn btn-primary" onclick="Envoyer_Post()" id="envoyer"
                         disabled>Envoyer</button>
-
-                    <script>
-                        function Envoyer_Post() {
-                            var pseudo = document.getElementById("pseudo").value;
-                            var titre = document.getElementById("titre").value;
-                            var contenu = document.getElementById("contenu").value;
-                            var tags = document.getElementById("tags").value;
-                            var image = document.getElementById("image").value;
-
-                            if (pseudo == "" || titre == "" || contenu == "" || tags == "") {
-                                alert("Veuillez remplir tous les champs");
-                                return;
-                            } else {
-                                if (image == "") {
-                                    image = "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg";
-                                } else {
-                                    //vérifier que l'image est bien une image qui fini par .png ou .jpg et qui commence par http ou https
-                                    if (image.startsWith("http://") || image.startsWith("https://")) {
-                                        if (image.endsWith(".png") || image.endsWith(".jpg")) {
-                                            //tout est bon
-                                        } else {
-                                            alert("L'image doit être au format .png ou .jpg");
-                                            return;
-                                        }
-                                    } else {
-                                        alert("L'image doit commencer par http:// ou https://");
-                                        return;
-                                    }
-                                }
-                            }
-
-                            var tableau = [pseudo, titre, contenu, tags, image];
-
-                            var xhr = new XMLHttpRequest();
-
-                            xhr.onload = function () {
-                                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                                    window.location.reload();
-                                }
-                            }
-                            xhr.open('POST', 'https://api.zehosting.fr/posts', false);
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                            xhr.setRequestHeader("Content-Type", "application/json");
-                            xhr.send(JSON.stringify({
-                                "pseudo": pseudo,
-                                "titre": titre,
-                                "contenu": contenu,
-                                "tags": tags,
-                                "image": image
-                            }));
-
-                            alert("Post envoyé");
-                        }
-
-                        function recherche() {
-                            var recherche = document.getElementById("recherche").value;
-
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('GET', 'https://api.zehosting.fr/posts/' + recherche, false);
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-
-                            xhr.send(null);
-
-                            window.location.href = "./posts_recherche.html?recherche=" + recherche;
-                        }
-                    </script>
 
                 </div>
             </div>
@@ -211,52 +138,6 @@
                                 id="modal_close">Fermer</button>
                             <button type="button" class="btn btn-primary" onclick="Envoyer_Post()"
                                 id="modal_send">Envoyer</button>
-
-                            <script>
-                                function Envoyer_Post() {
-                                    var lien = document.getElementById("image_modal").value;
-                                    if (lien.endsWith(".png") || lien.endsWith(".jpg")) {
-                                        document.getElementById("image_modal").style.borderColor = "green";
-                                        document.getElementById("image_modal").disabled = true;
-                                        document.getElementById("progress").hidden = false;
-
-                                        document.getElementById("modal_close").disabled = true;
-                                        document.getElementById("modal_send").disabled = true;
-
-                                        var progress_bar = document.getElementById("progress_bar");
-                                        var progress_interval = setInterval(function () {
-                                            var width = parseInt(progress_bar.style.width);
-                                            if (width < 100) {
-                                                progress_bar.style.width = (width + 1) + "%";
-                                            } else {
-                                                progress_bar.style.width = "1%";
-                                                clearInterval(progress_interval);
-
-                                                var xhr = new XMLHttpRequest();
-                                                xhr.onload = function () {
-                                                    if (xhr.readyState === 4) {
-                                                        window.location.reload();
-                                                    }
-                                                }
-
-                                                xhr.open('POST', 'https://api.zehosting.fr/Forum/updatephoto', false);
-                                                xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                                                xhr.setRequestHeader("Content-Type", "application/json");
-                                                xhr.send(JSON.stringify({
-                                                    "pseudo": sessionStorage.getItem("username"),
-                                                    "image": lien
-                                                }));
-                                            }
-                                        }, 30);
-                                    } else {
-                                        document.getElementById("image_modal").value = "";
-                                        document.getElementById("image_modal").style.borderColor = "red";
-                                        alert("Le lien doit finir par .png ou .jpg");
-                                    }
-
-                                }
-                            </script>
-
                         </div>
                     </div>
                 </div>
@@ -290,25 +171,6 @@
                                     </select>
                                     <script>
 
-                                        var xhr = new XMLHttpRequest();
-
-                                        xhr.onload = function () {
-                                            if (xhr.readyState === 4) {
-                                                var country = JSON.parse(xhr.responseText);
-                                                var select = document.getElementById("pays");
-                                                for (var i = 0; i < country.length; i++) {
-                                                    var opt = document.createElement('option');
-                                                    opt.value = country[i].name;
-                                                    opt.innerHTML = country[i].name;
-                                                    select.appendChild(opt);
-                                                }
-                                            }
-                                        }
-
-                                        xhr.open('GET', 'https://api.zehosting.fr/getcountries', false);
-                                        xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                                        xhr.send(null);
-
                                     </script>
                                 </div>
                             </div>
@@ -331,36 +193,6 @@
                             </div>
                             <button class="btn btn-primary" onclick="envoyer_modif()" type="button">Sauvegarder les
                                 modifications</button>
-
-                            <script>
-                                function envoyer_modif() {
-                                    var prenom = document.getElementById("prenom").value;
-                                    var nom = document.getElementById("nom").value;
-                                    var pays = document.getElementById("pays").value;
-                                    var telephone = document.getElementById("telephone").value;
-                                    var dateNaissance = document.getElementById("dateNaissance").value;
-
-                                    var xhr = new XMLHttpRequest();
-
-                                    xhr.onload = function () {
-                                        if (xhr.readyState === 4) {
-                                            window.location.reload();
-                                        }
-                                    }
-                                    xhr.open('POST', 'https://api.zehosting.fr/Forum/updateuser', false);
-                                    xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
-                                    xhr.setRequestHeader("Content-Type", "application/json");
-
-                                    xhr.send(JSON.stringify({
-                                        "pseudo": sessionStorage.getItem("username"),
-                                        "prenom": prenom,
-                                        "nom": nom,
-                                        "pays": pays,
-                                        "telephone": telephone,
-                                        "dateNaissance": dateNaissance
-                                    }));
-                                }
-                            </script>
                         </form>
                     </div>
                 </div>
@@ -377,6 +209,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+    <script src="./js/compte.js"></script>
 </body>
 
 </html>
