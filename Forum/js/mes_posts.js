@@ -1,3 +1,5 @@
+var username = sessionStorage.getItem("username");
+
 var xhr = new XMLHttpRequest();
 xhr.onload = function () {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
@@ -6,7 +8,10 @@ xhr.onload = function () {
         var taille = 1;
         for (var k in reponse) if (reponse.hasOwnProperty(k)) taille++;
 
+        var total_post = 0;
+
         for (var i = taille - 1; i > 0; i--) {
+            total_post += 1;
             var post = reponse[i];
             var titre = post.titre;
             var contenu = post.contenu;
@@ -16,32 +21,26 @@ xhr.onload = function () {
             var date = post.date;
             var id = post.id;
 
+
             var div = document.getElementById("posts");
             var tags = tags.split(",");
             var tags_total = "<div class='tags'>";
             for (var j = 0; j < tags.length; j++) {
                 tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
             }
+            if (pseudo == username) {
 
-            //si le contenu fait plus de 300 caractères, on affiche les 300 premiers caractères et on met "..."
-            if (contenu.length > 300) {
-                contenu = contenu.substring(0, 300) + "...";
+                tags_total = tags_total + "</div>";
+                div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"></div> ' + tags_total + '</div></div></div>';
             }
-
-            tags_total = tags_total + "</div>";
-            div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;" onclick="voir_post(' + id + ')">Voir le post</button></div> ' + tags_total + '</div></div></div>';
         }
+        document.getElementById("post_id").innerHTML = "Vous avez posté " + total_post + " post(s)";
     }
 }
 
-function voir_post(id) {
-    window.location.href = "./voir_post.html?id=" + id;
-}
 xhr.open('GET', 'https://api.zehosting.fr/posts', false);
 xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
 xhr.send(null);
-
-var username = sessionStorage.getItem("username");
 
 function Envoyer_Post() {
     var pseudo = document.getElementById("pseudo").value;

@@ -1,3 +1,7 @@
+var url = window.location.href;
+var id_post = url.split("=")[1];
+document.getElementById("post_id").innerHTML = "Post n°" + id_post;
+
 var xhr = new XMLHttpRequest();
 xhr.onload = function () {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
@@ -23,20 +27,17 @@ xhr.onload = function () {
                 tags_total = tags_total + '<span class="badge badge-secondary">' + tags[j] + '</span> ';
             }
 
-            //si le contenu fait plus de 300 caractères, on affiche les 300 premiers caractères et on met "..."
-            if (contenu.length > 300) {
-                contenu = contenu.substring(0, 300) + "...";
-            }
 
-            tags_total = tags_total + "</div>";
-            div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary" style="margin-bottom:10px;" onclick="voir_post(' + id + ')">Voir le post</button></div> ' + tags_total + '</div></div></div>';
+            if (id == id_post) {
+
+                tags_total = tags_total + "</div>";
+                div.innerHTML = div.innerHTML + '<br><div class="col-md-12" style="background-color: #DFDFDF;">Posté par : ' + pseudo + '<div class="post"><div class="row"><div class="col-md-12"><img src="' + image + '" width="200" height="150" style="margin-top:10px;"><h3>' + titre + '</h3></div></div><div class="row"><div class="col-md-12"><p>' + contenu + '</p></div></div><div class="row"><div class="col-md-12"></div> ' + tags_total + '</div></div></div>';
+            }
+            
         }
     }
 }
 
-function voir_post(id) {
-    window.location.href = "./voir_post.html?id=" + id;
-}
 xhr.open('GET', 'https://api.zehosting.fr/posts', false);
 xhr.setRequestHeader("Authorization", "Basic " + btoa("miniprojet:2024"));
 xhr.send(null);
