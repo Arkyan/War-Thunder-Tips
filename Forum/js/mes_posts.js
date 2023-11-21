@@ -1,5 +1,9 @@
 var username = sessionStorage.getItem("username");
 
+if (username == null) {
+    window.location.href = "./index.html";
+}
+
 var xhr = new XMLHttpRequest();
 xhr.onload = function () {
     if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
