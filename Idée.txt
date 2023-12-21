@@ -1,8 +1,0 @@
-Les différents types d'obus
-Les missiles caged et uncaged                   
-Les stats des missiles
-Les avions
-Les stats des avions 
-Les different calibre de gun
-Les guidage par laser
-Le cas
