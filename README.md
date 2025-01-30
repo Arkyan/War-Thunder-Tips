@@ -1,5 +1,3 @@
-<h1 align="center" id="title">TriadCorp</h1>
-
 <p id="description">Voici notre mini projet fait au lycée turgot en NSI 2023/2024; C'est un site web développé pour surtout les nouveaux joueurs War Thunder mais aussi les plus anciens via notre forum.</p>
 
   
